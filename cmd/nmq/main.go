@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/caarlos0/env/v6"
 	"github.com/nullmq/nmq"
+	"github.com/nullmq/nmq/internal/server"
 )
 
 func main() {
@@ -15,4 +17,7 @@ func main() {
 	}
 
 	fmt.Printf("%+v\n", cfg)
+	addr := fmt.Sprintf(":%d", cfg.Port)
+	srv := server.NewHTTPServer(addr)
+	log.Fatal(srv.ListenAndServe())
 }
